@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity implements MyInterface {
     }
 
 
-    public void showAddDialog(boolean type , String titlee, String date2, String time,String status) {
+    public void showAddDialog(boolean type , String titlee, String date2, String time2,String status) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this, R.style.AlertDialog);
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.custom_dialog, null);
@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements MyInterface {
         {
             editTitle.setText(titlee);
             dateText.setText(date2);
-            timeText.setText(time);
+            timeText.setText(time2);
         }
         else
         {
@@ -242,7 +242,16 @@ public class MainActivity extends AppCompatActivity implements MyInterface {
 
 
         final Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(System.currentTimeMillis());
+        if(type)
+        {
+            cal.setTimeInMillis(Long.parseLong(status));
+
+        }
+        else
+        {
+            cal.setTimeInMillis(System.currentTimeMillis());
+        }
+
 
 
         dateText.setOnClickListener(new View.OnClickListener() {
@@ -320,13 +329,14 @@ public class MainActivity extends AppCompatActivity implements MyInterface {
                     try {
                         if(type)
                         {
-                            if(cal.getTimeInMillis() != System.currentTimeMillis())
+
+                            if(date.equals(date2) && time.equals(time2))
                             {
-                                update(titlee,title, date, time,String.valueOf(cal.getTimeInMillis()));
+                                update(titlee,title, date, time,status);
                             }
                             else
                             {
-                                update(titlee,title, date, time,status);
+                                update(titlee,title, date, time,String.valueOf(cal.getTimeInMillis()));
                             }
 
                         }
